@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  db:
+    image: mariadb
+    environment:
+      MYSQL_USER: salmon
+      MYSQL_PASSWORD: salmon
+      MYSQL_DATABASE: salmon_development
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./db/mysql/volumes:/var/lib/mysql
+
+  app:
+    tty: yes
+    build: .
+    volumes:
+      - "../../salmon:/usr/src/salmon"
+    command: /bin/sh -c "cd /usr/src/salmon && bundle install --path vendor/bundle && /bin/sh"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
