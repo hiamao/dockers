@@ -3,6 +3,7 @@ version: "3"
 services:
   db:
     image: mariadb
+    tty: true
     environment:
       MYSQL_USER: salmon
       MYSQL_PASSWORD: salmon
@@ -11,7 +12,7 @@ services:
     ports:
       - '3306:3306'
     volumes:
-      - ./db/mysql/volumes:/var/lib/mysql
+      - ./db/mariadb/volumes:/var/lib/mariadb
 
   app:
     tty: yes
